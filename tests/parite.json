@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "aciklama": "NexusPrimer 2.0 Diferansiyel Parite Test Referansları",
+    "ozeltur_sirasi": [
+      "karar_suresi_sn",
+      "onceki_yanlis_sayisi",
+      "ipucu_sayisi",
+      "karar_degistirme_sayisi",
+      "sahne_no",
+      "seviye",
+      "onceki_karar_suresi",
+      "kararsizlik_suresi"
+    ],
+    "tolerans": 1e-4,
+    "aciklama_tolerans": "abs(p_python - p_web) < 1e-4 olmalıdır. Bu değerler model eğitimi sonrası Oracle tarafından üretilmiştir."
+  },
+  "referans_girdiler": [
+    {
+      "id": "ref-001",
+      "aciklama": "Yuksek ipucu ihtiyaci - uzun sure, cok ipucu, karar degistirdi",
+      "ozellikler": {
+        "karar_suresi_sn": 50.0,
+        "onceki_yanlis_sayisi": 2,
+        "ipucu_sayisi": 4,
+        "karar_degistirme_sayisi": 3,
+        "sahne_no": 2,
+        "seviye": 0,
+        "onceki_karar_suresi": 45.0,
+        "kararsizlik_suresi": 20.0
+      },
+      "beklenen_sinif": 1,
+      "oracle_olasilik": 1.000000,
+      "tolerans": 1e-4
+    },
+    {
+      "id": "ref-002",
+      "aciklama": "Dusuk ipucu ihtiyaci - hizli karar, ipucu yok, deneyimli",
+      "ozellikler": {
+        "karar_suresi_sn": 8.0,
+        "onceki_yanlis_sayisi": 0,
+        "ipucu_sayisi": 0,
+        "karar_degistirme_sayisi": 0,
+        "sahne_no": 1,
+        "seviye": 1,
+        "onceki_karar_suresi": 0.0,
+        "kararsizlik_suresi": 2.0
+      },
+      "beklenen_sinif": 0,
+      "oracle_olasilik": 0.000000,
+      "tolerans": 1e-4
+    },
+    {
+      "id": "ref-003",
+      "aciklama": "Orta profil - orta sure, 1 ipucu, karar degistirmedi",
+      "ozellikler": {
+        "karar_suresi_sn": 25.0,
+        "onceki_yanlis_sayisi": 1,
+        "ipucu_sayisi": 1,
+        "karar_degistirme_sayisi": 0,
+        "sahne_no": 2,
+        "seviye": 0,
+        "onceki_karar_suresi": 22.0,
+        "kararsizlik_suresi": 7.0
+      },
+      "beklenen_sinif": 0,
+      "oracle_olasilik": 0.352113,
+      "tolerans": 1e-4
+    },
+    {
+      "id": "ref-004",
+      "aciklama": "Cok yuksek ipucu ihtiyaci - maksimum kararsizlik",
+      "ozellikler": {
+        "karar_suresi_sn": 65.0,
+        "onceki_yanlis_sayisi": 2,
+        "ipucu_sayisi": 5,
+        "karar_degistirme_sayisi": 4,
+        "sahne_no": 3,
+        "seviye": 0,
+        "onceki_karar_suresi": 60.0,
+        "kararsizlik_suresi": 28.0
+      },
+      "beklenen_sinif": 1,
+      "oracle_olasilik": 1.000000,
+      "tolerans": 1e-4
+    },
+    {
+      "id": "ref-005",
+      "aciklama": "Deneyimli kullanici - hizli ve emin",
+      "ozellikler": {
+        "karar_suresi_sn": 10.0,
+        "onceki_yanlis_sayisi": 0,
+        "ipucu_sayisi": 0,
+        "karar_degistirme_sayisi": 0,
+        "sahne_no": 3,
+        "seviye": 1,
+        "onceki_karar_suresi": 9.0,
+        "kararsizlik_suresi": 1.0
+      },
+      "beklenen_sinif": 0,
+      "oracle_olasilik": 0.000000,
+      "tolerans": 1e-4
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿// ===== NexusPrimer — AK-02: Karar Ekranı ve Sonuç Gösterimi =====
+// ===== NexusPrimer — AK-02: Karar Ekranı ve Sonuç Gösterimi =====
 
 describe('AK-02 — Karar Ekranı ve Seçenek Sonuçları', () => {
   beforeEach(() => {
@@ -36,7 +36,7 @@ describe('AK-02 — Karar Ekranı ve Seçenek Sonuçları', () => {
     cy.get('#decision-2-option-B').should('be.visible');
   });
 
-  it('Progress bar Karar 2'de güncellenir', () => {
+  it("Progress bar Karar 2'de güncellenir", () => {
     cy.makeDecision(1, 'A');
     cy.continueFromOutcome();
     cy.get('#progress-bar').should('be.visible');

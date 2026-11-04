@@ -1,0 +1,68 @@
+{
+  "model_name": "nexusprimer-hint-predictor",
+  "version": "2.0.0",
+  "model_type": "DecisionTree",
+  "feature_names": [
+    "karar_suresi_sn",
+    "onceki_yanlis_sayisi",
+    "ipucu_sayisi",
+    "karar_degistirme_sayisi",
+    "sahne_no",
+    "seviye",
+    "onceki_karar_suresi",
+    "kararsizlik_suresi"
+  ],
+  "feature_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "feature_dtypes": [
+    "float32",
+    "float32",
+    "float32",
+    "float32",
+    "float32",
+    "float32",
+    "float32",
+    "float32"
+  ],
+  "class_labels": [
+    0,
+    1
+  ],
+  "class_names": [
+    "ipucu_yok",
+    "ipucu_var"
+  ],
+  "acceptance_threshold": 0.65,
+  "train_metrics": {
+    "model_name": "DecisionTree",
+    "accuracy": 0.9167,
+    "precision": 1.0,
+    "recall": 0.8333,
+    "f1_score": 0.9091,
+    "confusion_matrix": [
+      [
+        6,
+        0
+      ],
+      [
+        1,
+        5
+      ]
+    ]
+  },
+  "cv_f1_mean": 0.9351,
+  "random_state": 42,
+  "train_size": 48,
+  "test_size": 12,
+  "onnx_opset": 1,
+  "scaler": null,
+  "etiketleme_kurali": "ipucu_gerekli=1 EĞER (ipucu_sayisi>=2 VEYA karar_suresi_sn>=30 VEYA karar_degistirme_sayisi>=2)"
+}

@@ -1,21 +1,22 @@
-﻿/* ===== NexusPrimer — AI Tutor (Simülasyon) ===== */
+/* ===== NexusPrimer 2.0 — AI Tutor (ML Adaptif & Simülasyon) ===== */
 /*
- * ÖNEMLİ: Bu bir simülasyondur. Gerçek bir LLM API'si kullanılmamaktadır.
- * Tutor yanıtları kural tabanlı bir sistemle oluşturulmaktadır.
- * Gerçek bir LLM entegrasyonu için API anahtarları sunucu tarafında tutulmalıdır.
+ * ÖNEMLİ: Bu sistem NexusPrimer 2.0 ONNX makine öğrenmesi modeli ile entegredir.
+ * Tutor davranışları, kullanıcının karar süresi ve davranış kalıplarından üretilen
+ * ONNX model tahminine göre dinamik olarak adapte edilir.
  */
 
 import type { TutorResponse, UserProfile } from '../types';
+import type { MLPrediction } from './mlModel';
 
 // ===== JSON Schema Tanımı =====
 export const TUTOR_RESPONSE_SCHEMA = {
   type: 'object',
   required: ['message', 'hint_level', 'answer_revealed', 'reasoning_question', 'status'],
   properties: {
-    message: { type: 'string', minLength: 1, maxLength: 500 },
+    message: { type: 'string', minLength: 1, maxLength: 600 },
     hint_level: { type: 'integer', minimum: 1, maximum: 3 },
     answer_revealed: { type: 'boolean' },
-    reasoning_question: { type: 'string', maxLength: 300 },
+    reasoning_question: { type: 'string', maxLength: 400 },
     status: { type: 'string', enum: ['success', 'fallback', 'injection_blocked'] },
   },
 } as const;
@@ -63,7 +64,7 @@ function isDirectAnswerRequest(input: string): boolean {
   return DIRECT_ANSWER_PATTERNS.some((pattern) => pattern.test(input));
 }
 
-// ===== Tutor yanıt üretimi =====
+// ===== Güvenli Yanıtlar =====
 const SAFE_INJECTION_RESPONSE: TutorResponse = {
   message:
     'Bu tür bir talebe yanıt veremem. Amacım sana doğru düşünme yollarını göstermek, cevapları doğrudan vermek değil. Senaryo hakkında düşünmeye devam edelim.',
@@ -163,23 +164,11 @@ function getLevelKey(level: string): string {
   }
 }
 
-function getHintLevel(level: string): number {
-  switch (level) {
-    case 'beginner':
-      return 3;
-    case 'intermediate':
-      return 2;
-    case 'experienced':
-      return 1;
-    default:
-      return 2;
-  }
-}
-
 export function generateTutorResponse(
   userInput: string,
   profile: UserProfile,
-  currentDecision: number
+  currentDecision: number,
+  mlPrediction?: MLPrediction | null
 ): TutorResponse {
   // 1. Prompt injection kontrolü
   if (detectPromptInjection(userInput)) {
@@ -193,29 +182,44 @@ export function generateTutorResponse(
 
   const decisionKey = String(currentDecision);
   const levelKey = getLevelKey(profile.level);
-  const hintLevel = getHintLevel(profile.level);
+
+  // ML modeline göre ipucu derinliği ve adaptasyon
+  let hintLevel = profile.level === 'beginner' ? 3 : profile.level === 'intermediate' ? 2 : 1;
+  let mlPrefix = '';
+  let adaptiveQuestionSuffix = '';
+
+  if (mlPrediction) {
+    if (mlPrediction.ipucu_gerekli) {
+      // MODEL: İpucu İhtiyacı YÜKSEK (Destekleyici / Pedagojik Mod)
+      hintLevel = 3;
+      mlPrefix = `💡 [ONNX Adaptif Destek - P: ${(mlPrediction.olasilik * 100).toFixed(0)}%]: Karar sürecinde zorlandığını tespit ettim. Sana adımları daha ayrıntılı açıklıyorum:\n`;
+      adaptiveQuestionSuffix = '\n\n👉 Yönlendirici Adım: Öncelikle risk tablosunu gözden geçirip geri dönüş planını kontrol etmeni öneririm.';
+    } else {
+      // MODEL: İpucu İhtiyacı DÜŞÜK (Meydan Okuyan / İleri Düzey Mod)
+      hintLevel = 1;
+      mlPrefix = `🎯 [ONNX Bağımsız Analiz - P: ${(mlPrediction.olasilik * 100).toFixed(0)}%]: Analizlerin güçlü ilerliyor. Gereksiz yönlendirme yapmıyorum.\n`;
+      adaptiveQuestionSuffix = '\n\n⚡ Zorlayıcı Mühendislik Sorusu: Bu kararın uzun vadeli teknik borç (technical debt) maliyetini hesaba kattın mı?';
+    }
+  }
 
   // 3. Doğrudan cevap isteme
   if (isDirectAnswerRequest(userInput)) {
-    const questions =
-      SOCRATIC_QUESTIONS[decisionKey]?.[levelKey] ?? [];
+    const questions = SOCRATIC_QUESTIONS[decisionKey]?.[levelKey] ?? [];
     const randomQ =
       questions[Math.floor(Math.random() * questions.length)] ??
       'Bu kararı vermeden önce hangi faktörleri değerlendirmen gerektiğini düşün.';
 
     return {
-      message:
-        'Doğrudan cevap vermek yerine birlikte düşünelim. Karar verirken tüm faktörleri değerlendirmek önemlidir.',
+      message: `${mlPrefix}Doğrudan cevap vermek yerine birlikte düşünelim. Karar verirken tüm faktörleri değerlendirmek önemlidir.`,
       hint_level: hintLevel,
       answer_revealed: false,
-      reasoning_question: randomQ,
+      reasoning_question: `${randomQ}${adaptiveQuestionSuffix}`,
       status: 'success',
     };
   }
 
   // 4. Normal soru/yorum — Sokratik yanıt
-  const questions =
-    SOCRATIC_QUESTIONS[decisionKey]?.[levelKey] ?? [];
+  const questions = SOCRATIC_QUESTIONS[decisionKey]?.[levelKey] ?? [];
   const hints = GENERAL_HINTS[decisionKey] ?? [];
 
   const randomQuestion =
@@ -226,10 +230,10 @@ export function generateTutorResponse(
     'Her kararın teknik sonuçlarını değerlendir.';
 
   return {
-    message: randomHint,
+    message: `${mlPrefix}${randomHint}`,
     hint_level: hintLevel,
     answer_revealed: false,
-    reasoning_question: randomQuestion,
+    reasoning_question: `${randomQuestion}${adaptiveQuestionSuffix}`,
     status: 'success',
   };
 }
@@ -255,8 +259,8 @@ export function validateTutorResponse(response: unknown): {
   // message kontrolü
   if (typeof r.message !== 'string' || r.message.length === 0) {
     errors.push('message alanı eksik veya geçersiz');
-  } else if (r.message.length > 500) {
-    errors.push('message 500 karakteri aşıyor');
+  } else if (r.message.length > 700) {
+    errors.push('message 700 karakteri aşıyor');
   }
 
   // hint_level kontrolü
@@ -274,8 +278,8 @@ export function validateTutorResponse(response: unknown): {
   // reasoning_question kontrolü
   if (typeof r.reasoning_question !== 'string') {
     errors.push('reasoning_question eksik');
-  } else if (r.reasoning_question.length > 300) {
-    errors.push('reasoning_question 300 karakteri aşıyor');
+  } else if (r.reasoning_question.length > 500) {
+    errors.push('reasoning_question 500 karakteri aşıyor');
   }
 
   // status kontrolü

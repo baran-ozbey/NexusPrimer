@@ -1,4 +1,4 @@
-﻿// ===== NexusPrimer — AK-08 & AK-09: Tutor Güvenliği & Prompt Injection =====
+// ===== NexusPrimer — AK-08 & AK-09: Tutor Güvenliği & Prompt Injection =====
 
 describe('AK-08 & AK-09 — AI Tutor Güvenliği', () => {
   beforeEach(() => {
@@ -90,14 +90,14 @@ describe('AK-08 & AK-09 — AI Tutor Güvenliği', () => {
     });
   });
 
-  it('Tutor Karar 2'de de çalışır', () => {
+  it("Tutor Karar 2'de de çalışır", () => {
     cy.makeDecision(1, 'A');
     cy.continueFromOutcome();
     sendToTutor('Smoke test nedir?');
     getLastTutorMessage().should('be.visible');
   });
 
-  it('Tutor Karar 3'te de çalışır', () => {
+  it("Tutor Karar 3'te de çalışır", () => {
     cy.makeDecision(1, 'A');
     cy.continueFromOutcome();
     cy.makeDecision(2, 'A');
