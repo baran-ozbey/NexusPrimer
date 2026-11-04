@@ -34,8 +34,11 @@ const FEATURE_ORDER = [
   'kararsizlik_suresi',
 ] as const;
 
-// Model URL — Hugging Face'e yayınlandıktan sonra commit SHA ile sabitlenecek
-// Şu an: yerel public/ dizininden yükle
+// Model URL — Hugging Face commit SHA ile sabitlenmiş (güvenilir yedek)
+// HF: https://huggingface.co/baranozbey/nexusprimer-adaptive-model
+// SHA: 99ab6675dc0d48471aad19f2e79706d83e46af29
+// HF URL: https://huggingface.co/baranozbey/nexusprimer-adaptive-model/resolve/99ab6675dc0d48471aad19f2e79706d83e46af29/model.onnx
+// Şu an: yerel public/ dizininden yükle (hızlı, çevrimdışı-first)
 const MODEL_URL = '/model/model.onnx';
 
 let session: unknown = null;

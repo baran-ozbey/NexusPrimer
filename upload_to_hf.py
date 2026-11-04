@@ -56,10 +56,10 @@ def main():
 
     commit_sha = commit_info.oid if hasattr(commit_info, 'oid') else "latest"
     print("\n" + "=" * 60)
-    print("✅ HUGGING FACE YAYINI BAŞARIYLA TAMAMLANDI!")
+    print("[OK] HUGGING FACE YAYINI BASARIYLA TAMAMLANDI!")
     print(f"Repo URL:       https://huggingface.co/{repo_id}")
     print(f"Commit SHA:     {commit_sha}")
-    print(f"Sabitlenmiş URL:\nhttps://huggingface.co/{repo_id}/resolve/{commit_sha}/model.onnx")
+    print(f"Sabitlenmis URL:\nhttps://huggingface.co/{repo_id}/resolve/{commit_sha}/model.onnx")
     print("=" * 60)
 
 if __name__ == "__main__":

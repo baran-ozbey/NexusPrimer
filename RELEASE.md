@@ -18,8 +18,10 @@ NexusPrimer v2.0, kural tabanlı statik simülasyonu makine öğrenmesi destekli
 - **F1-Score:** `0.9091` (Kabul eşiği: 0.65)
 - **Model Konumu:** `model/model.onnx` ve `public/model/model.onnx`
 - **Yapılandırma:** `model/config.json`
-- **Hugging Face Repo Adı:** `nexusprimer-adaptive-model`
-- **Commit SHA / Versiyon:** `v2.0.0-release` (Sabitlenmiş hash ile tüketim)
+- **Hugging Face Repo:** [baranozbey/nexusprimer-adaptive-model](https://huggingface.co/baranozbey/nexusprimer-adaptive-model)
+- **Commit SHA:** `99ab6675dc0d48471aad19f2e79706d83e46af29`
+- **Sabitlenmiş Model URL:**
+  `https://huggingface.co/baranozbey/nexusprimer-adaptive-model/resolve/99ab6675dc0d48471aad19f2e79706d83e46af29/model.onnx`
 
 ---
 
