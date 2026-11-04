@@ -106,24 +106,36 @@ Model artefaktları Hugging Face Hub üzerinde yayınlanmaya hazırdır:
 
 ## 🧪 8. Testler ve Doğrulama
 
-1. **Parite Testi:**
+1. **Diferansiyel Parite Testi (Python Oracle vs ONNX):**
    ```bash
    python tests/parite.py
+   # veya hf_cli ile:
+   python hf_cli.py parite
    ```
-2. **Linter:**
+
+2. **FastAPI Sunucu Testi (Bonus +10 Kazanımı):**
+   ```bash
+   python tests/test_server.py
+   ```
+
+3. **Sentetik Veri Üretimi ve Doğrulama:**
+   ```bash
+   python data/generate_synthetic.py
+   ```
+
+4. **Linter:**
    ```bash
    npm run lint
    ```
-3. **TypeScript & Production Build:**
+
+5. **TypeScript & Production Build:**
    ```bash
    npm run build
    ```
-4. **Cypress E2E Testleri:**
-   ```bash
-   # Cypress E2E
-   npm run cy:run
 
-   # Playwright E2E (Tavsiye edilen - 8/8 test geçer)
+6. **E2E Kabul Testleri:**
+   ```bash
+   # Playwright E2E (8/8 test geçer)
    npm run test:e2e
    ```
 
