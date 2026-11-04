@@ -2,7 +2,7 @@
 
 > **Samsun Üniversitesi YZM301 Yazılım Mühendisliği Dersi**  
 > Geliştirici: **Baran Özbey** | Danışman: **Dr. Öğr. Üyesi Nurettin Şenyer**  
-> GitHub: [github.com/baran-ozbey/NexusPrimer](https://github.com/baran-ozbey/NexusPrimer) | Demo Video: [demo_v2_adaptive_60s.mp4](https://github.com/baran-ozbey/NexusPrimer/blob/main/demo_v2_adaptive_60s.mp4)
+> GitHub: [github.com/baran-ozbey/NexusPrimer](https://github.com/baran-ozbey/NexusPrimer) | Demo Video: [YouTube İzle](https://youtu.be/_MCiH5Ab0Bo)
 
 ---
 
@@ -234,4 +234,4 @@ Bu projede uygulanan mimari kararlar ve test metodolojisi aşağıdaki akademik 
 - **3. Canlı Uygulama Linki (GitHub Pages):**  
   `https://baran-ozbey.github.io/NexusPrimer/`
 - **4. Demo Video Linki:**  
-  `https://github.com/baran-ozbey/NexusPrimer/blob/main/demo_v2_adaptive_60s.mp4` (veya repo içindeki `demo_v2_adaptive_60s.mp4`)
+  `https://youtu.be/_MCiH5Ab0Bo` (veya repo içi: `demo_v2_adaptive_60s.mp4`)
