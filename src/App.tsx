@@ -297,7 +297,11 @@ export default function App() {
     const finalData = buildFinalData(decisions, profile);
     return (
       <>
-        <FinalScreen data={finalData} onReplay={handleReplay} />
+        <FinalScreen
+          data={finalData}
+          onReplay={handleReplay}
+          sessionRows={sessionRows}
+        />
         <DataCollectionPanel
           rows={sessionRows}
           onExport={handleExport}

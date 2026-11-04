@@ -91,3 +91,4 @@ if __name__ == "__main__":
     df.to_csv(out_path, index=False)
     print(f"[OK] {len(df)} satırlık sentetik veri üretildi: {out_path}")
     print(df.head())
+
