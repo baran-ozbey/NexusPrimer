@@ -1,8 +1,8 @@
 # NexusPrimer 2.0 — Adaptif Makine Öğrenmesi Destekli Kriz Simülasyonu
 
 > **Samsun Üniversitesi YZM301 Yazılım Mühendisliği Dersi**  
-> Geliştirici: **Baran Özbey** | Danışman: **Prof. Dr. Nurettin Şenyer**  
-> GitHub: [github.com/baran-ozbey/NexusPrimer](https://github.com/baran-ozbey/NexusPrimer) | Canlı Demo Video: [YouTube Linki](https://youtu.be/L7HYXA_F1kc)
+> Geliştirici: **Baran Özbey** | Danışman: **Dr. Öğr. Üyesi Nurettin Şenyer**  
+> GitHub: [github.com/baran-ozbey/NexusPrimer](https://github.com/baran-ozbey/NexusPrimer) | Demo Video: [demo_v2_adaptive_60s.mp4](https://github.com/baran-ozbey/NexusPrimer/blob/main/demo_v2_adaptive_60s.mp4)
 
 ---
 
@@ -133,11 +133,20 @@ Model artefaktları Hugging Face Hub üzerinde yayınlanmaya hazırdır:
    npm run build
    ```
 
-6. **E2E Kabul Testleri:**
+6. **E2E Kabul Testleri (8/8 Playwright):**
    ```bash
-   # Playwright E2E (8/8 test geçer)
    npm run test:e2e
    ```
+
+### `hf_cli.py` Komut Referansı
+
+| Komut | Açıklama |
+|---|---|
+| `python hf_cli.py predict` | Yerel ONNX modeliyle örnek tahmin yap |
+| `python hf_cli.py hub-predict` | Hugging Face'ten commit SHA'ya sabitlenmiş modeli çek ve tahmin yap |
+| `python hf_cli.py parite` | Python Oracle vs ONNX parite testi (5/5 referans, < 1e-4 tolerans) |
+| `python hf_cli.py server` | FastAPI sunucusunu başlat (Bonus, port 8000) |
+| `python hf_cli.py deploy` | Modeli Hugging Face Hub'a yükle (HF token gerekir) |
 
 ---
 

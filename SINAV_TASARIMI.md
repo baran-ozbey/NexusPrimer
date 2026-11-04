@@ -37,3 +37,73 @@ Ancak Kalite Güvence (QA) ekibi, Python ortamında eğitilen model ile tarayıc
 2. **Çeldirici 2 (Kayan Noktalı Sayılarda `==` Kullanmak):** Float32 hassasiyet farkları nedeniyle doğrudan eşitlik (`1.00000001 == 1.0`) kontrolü hatalı başarısızlıklara yol açar. $\epsilon$ toleransı zorunludur.
 3. **Çeldirici 3 (Doğrulama ile Geçerlemeyi Karıştırmak):** Sayısal pariteyi kanıtlamak yalnızca doğrulamadır; modelin klinik olarak doğru çalıştığını tek başına kanıtlamaz.
 
+---
+
+## 🧭 Vize Hazırlık Düşünce Egzersizi
+
+Bu egzersiz, NexusPrimer'ı geliştirirken yaşadıklarınızı sistematik olarak düşünmenize yardımcı olmak için tasarlanmıştır. Vize öncesinde aşağıdaki soruları kendi kendinize yanıtlayın.
+
+---
+
+### Soru 1 — Development: Kabul Eşiği ve Test Tasarımı
+
+> *"Modeli eğitmeden önce F1 ≥ 0.65 eşiğini neden belirlediniz? Bu eşiği eğitimden **sonra** belirlemiş olsaydınız hangi istatistiksel tehlikeyle karşılaşırdınız? Buna istatistikte ne ad verilir?"*
+
+**Düşünce İpuçları:**
+- Eşiği önceden belirlemek ile sonuçlara bakıp belirlemek arasındaki fark nedir?
+- "p-hacking" veya "HARKing (Hypothesizing After Results are Known)" kavramlarıyla bağlantısı nedir?
+- NexusPrimer'da gerçekleşen F1 = 0.9091. Eşik 0.90 olsaydı ne olurdu?
+
+---
+
+### Soru 2 — Deployment: Mimari Ödünleşim (Trade-off)
+
+> *"Modeli tarayıcıda (ONNX Runtime Web) çalıştırmak ile sunucuda (FastAPI) çalıştırmak arasında üç temel mühendislik ödünleşimi nedir? Hangi senaryoda sunucu tarafını tercih ederdiniz?"*
+
+**Düşünce İpuçları:**
+- Veri gizliliği (KVKK) açısından hangisi daha güvenli?
+- Ağ kesintisinde kullanıcı deneyimi nasıl etkilenir?
+- Model güncellendiğinde hangi mimaride daha hızlı yayına alırsınız?
+- NexusPrimer'da **neden** tarayıcı tercih edildi? (bkz. `RELEASE.md` Bölüm 3)
+
+---
+
+### Soru 3 — Inference: Diferansiyel Test ve Oracle
+
+> *"Python ortamında eğittiğiniz model ile tarayıcıda ONNX Runtime Web'de çalışan model, aynı girdi için teorik olarak birebir aynı çıktıyı vermeli. Ancak pratikte neden küçük farklar çıkabilir? Bu farkı nasıl kanıtladınız?"*
+
+**Düşünce İpuçları:**
+- Float32 ile Float64 arasındaki fark nedir?
+- x86 CPU'da Python'un hesapladığı şey ile WebAssembly SIMD'nin hesapladığı şey neden mikro düzeyde farklı olabilir?
+- `tests/parite.py`'de kullandığınız `abs(p_python - p_web) < 1e-4` toleransını nasıl belirlediniz?
+- Gerçekleşen maksimum fark 3.19e-07 — bu neden 1e-4'ten çok daha küçük?
+
+---
+
+### Soru 4 — 3V: Velocity · Validation · Versioning
+
+> *"Shankar vd. (2022)'nin tanımladığı 'Üretim Makine Öğrenmesinin 3V Problemi'ni NexusPrimer projesinde nasıl uyguladınız? Her V için somut bir artefakt veya karar verebilir misiniz?"*
+
+**Düşünce İpuçları:**
+
+| V | NexusPrimer'da Karşılığı |
+|---|---|
+| **Velocity (Hız)** | `python train.py` tek komutla çalışır. E2E testler Playwright ile otomatik. |
+| **Validation (Doğrulama)** | F1 ≥ 0.65 eval gate + Python Oracle parite testi (< 1e-4). |
+| **Versioning (Sürümleme)** | HF Hub'da commit SHA `99ab6675` ile dondurulmuş URL. |
+
+- Bu üç V'den hangisini uygulamak en zor geldi, neden?
+- Modeli bir sonraki sürümde güncelleseydiniz hangi adımları izlerdiniz?
+
+---
+
+### Soru 5 — Vizyon Mühendisliği: Problemin Özü
+
+> *"Andrew Ng'e göre mühendisliğin %90'ı problemin gerçek özünü anlamaya ayrılmalıdır. NexusPrimer'da çözdüğünüz esas problem neydi? 'Makine öğrenmesi modeli eklemek' cevabı yeterli mi — daha derindeki pedagojik ve mühendislik problemi neydi?"*
+
+**Düşünce İpuçları:**
+- Tek tip ipucu vermenin pedagojik sorunu nedir?
+- "Ne seçildiğine değil, nasıl seçildiğine bakmak" fikri nereden geldi?
+- Bu fikri somut, ölçülebilir bir ML problemine dönüştürmek için hangi tasarım kararlarını aldınız?
+- Davranışsal metriklerin (karar_suresi_sn, karar_degistirme_sayisi) seçimi tesadüfi mi, yoksa pedagojik literatüre dayalı mı?
+
