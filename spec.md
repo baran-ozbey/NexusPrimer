@@ -104,3 +104,31 @@ Samsun Üniversitesi YZM301 Yazılım Mühendisliği dersi öğrencileri. Farkl�
 - **AK-14 (Dinamik Tutor):** Model çıktısına göre Tutor paneli mod değiştirir (`MOD: DESTEK` veya `MOD: MEYDAN OKUMA`).
 - **AK-15 (Veri Toplama):** Oturum ID rastgele atanır, kararlar kaydedilir ve CSV çıktısı üretilir.
 - **AK-16 (Parite Kontrolü):** `tests/parite.py` 5/5 referansta `< 1e-4` toleransla geçer.
+
+
+### 7.4. Somut 3 Yeni Kabul Örneği (BDD / Senaryo Doğrulaması)
+
+#### Kabul Örneği 1: Kararsız ve Tereddütlü Kullanıcı (İpucu İhtiyacı Yüksek)
+- **Girdi / Durum:**
+  - `karar_suresi_sn = 45.0`, `onceki_yanlis_sayisi = 2`, `ipucu_sayisi = 3`, `karar_degistirme_sayisi = 2`, `sahne_no = 2`, `seviye = 0 (beginner)`, `onceki_karar_suresi = 40.0`, `kararsizlik_suresi = 18.0`.
+- **Beklenen Model Çıktısı:**
+  - `ipucu_gerekli = 1` ve `P(1) >= 0.50` (Örnek: $P = 1.00$).
+- **Uygulama İçi Davranış:**
+  - Tutor paneli otomatik olarak `[MOD: DESTEK]` durumuna geçer.
+  - Sokratik yönlendirme ipuçları daha detaylı ve cesaretlendirici hale gelir.
+
+#### Kabul Örneği 2: Hızlı ve Emin Kullanıcı (İpucu İhtiyacı Düşük)
+- **Girdi / Durum:**
+  - `karar_suresi_sn = 8.0`, `onceki_yanlis_sayisi = 0`, `ipucu_sayisi = 0`, `karar_degistirme_sayisi = 0`, `sahne_no = 1`, `seviye = 1 (experienced)`, `onceki_karar_suresi = 0.0`, `kararsizlik_suresi = 2.0`.
+- **Beklenen Model Çıktısı:**
+  - `ipucu_gerekli = 0` ve `P(1) < 0.50` (Örnek: $P = 0.00$).
+- **Uygulama İçi Davranış:**
+  - Tutor paneli `[MOD: MEYDAN OKUMA]` moduna geçer.
+  - Fazladan ipucu verilmez; öğrenciye alternatif kriz risklerini irdeleyen eleştirel sorular yöneltilir.
+
+#### Kabul Örneği 3: Anonim Veri Toplama ve Dışa Aktarma
+- **Girdi / Durum:**
+  - Kullanıcı 3 karar aşamasını tamamlar (`sahne_no = 1, 2, 3`).
+- **Beklenen Davranış:**
+  - Her karar satırı KVKK kurallarına tam uyumlu şekilde (ad, e-posta, IP, konum olmadan) rastgele bir `oturum-*` ID'si ile yerel hafızaya kaydedilir.
+  - "Veri Toplama Paneli" içindeki "CSV Olarak İndir" butonu aktifleşir ve `kaynak: "gercek"` etiketli veriler `oturumlar.csv` formatında dışa aktarılabilir.

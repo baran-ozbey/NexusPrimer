@@ -174,3 +174,43 @@ Bu projenin v2.0 adaptif makine öğrenmesi dönüşümünde **Antigravity** yap
   3. **Profil 1 (Kararsız Kullanıcı):** Yüksek karar süresi, AI Tutor'a tereddütlü soru sorma, Sokratik pedagojik destek, $p \ge 0.5$ ve **MOD: DESTEK** adaptif geçişi
   4. **Profil 2 (Hızlı ve Emin Kullanıcı):** Hızlı karar alma, $p < 0.5$ ve **MOD: MEYDAN OKUMA** adaptif geçişi
   5. Final değerlendirme ekranı ve toplanan oturum verilerinin CSV olarak dışa aktarımı
+
+
+---
+
+## 📚 12. Akademik Kaynaklar ve Mühendislik Referansları
+
+Bu projede uygulanan mimari kararlar ve test metodolojisi aşağıdaki akademik literatüre ve endüstri standartlarına dayanmaktadır:
+
+1. **Andrew Ng'nin 4 Mühendislik Başlığı:**
+   - (1) Yazılım mühendisliği temelleri (test, diferansiyel doğrulama, modüler mimari).
+   - (2) Coding agent yönetim becerisi (Antigravity'nin pair programmer olarak yönetilmesi).
+   - (3) Yapay zekâda Development · Deployment · Inference yaşam döngüsü.
+   - (4) Vizyon Mühendisliği (küçük, amaca yönelik adaptif karar modellemesi).
+2. **Amershi vd. (2019) — *Software Engineering for Machine Learning: A Case Study* (Microsoft):**
+   - Makine öğrenmesi yaşam döngüsünün doğrusal değil, veri toplama, yerel eğitim, dağıtım ve sürekli çıkarım gözlemi arasında dönen "yaşayan bir döngü" olduğu prensibi uygulandı.
+3. **Shankar vd. (2022) — *Operationalizing Machine Learning (3V Problemi)*:**
+   - **Velocity (Hız):** Tek komutla eğitim (`python train.py`) ve Playwright E2E testleri.
+   - **Validation (Doğrulama):** Kabul eşiği ($F1 \ge 0.65$) ve diferansiyel parite toleransı ($< 10^{-4}$).
+   - **Versioning (Sürümleme):** Hugging Face Hub üzerinde commit SHA (`99ab6675`) ile dondurulmuş model URL'si.
+4. **Mitchell vd. (2019) — *Model Cards for Model Reporting*:**
+   - [`model/README.md`](model/README.md) içerisinde modelin amacı, veri seti sınırları, etik değerlendirmesi ve kullanılmaması gereken durumlar şeffafça belgelendi.
+5. **Breck vd. (2017) — *The ML Test Score: A Rubric for ML Production Readiness*:**
+   - Modelin yalnızca eğitim metrikleriyle değil, Python Oracle ile tarayıcı ortamı arasındaki diferansiyel testlerle doğrulanması sağlandı.
+6. **Stanford HAI (2025) & Gartner (2025) Raporları:**
+   - Çıkarım maliyetlerindeki 300x düşüş ve göreve özel küçük modellerin genel LLM'lere göre hız ve gizlilik avantajı nedeniyle istemci tarafında çalışan ONNX Runtime Web tercih edildi.
+7. **Sommerville — *Software Engineering* (10. Baskı):**
+   - Bölüm 8 (Yazılım Testi: Doğrulama ve Geçerleme - V&V) ve Bölüm 25 (Konfigürasyon ve Değişiklik Yönetimi - Rollback planları).
+
+---
+
+## 📋 13. Teslim Formu Bilgileri (Google Forms)
+
+- **1. GitHub Repo Linki:**  
+  `https://github.com/baran-ozbey/NexusPrimer`
+- **2. Hugging Face Model Linki (Commit'e Sabitlenmiş):**  
+  `https://huggingface.co/baranozbey/nexusprimer-adaptive-model/resolve/99ab6675dc0d48471aad19f2e79706d83e46af29/model.onnx`
+- **3. Canlı Uygulama Linki (GitHub Pages):**  
+  `https://baran-ozbey.github.io/NexusPrimer/`
+- **4. Demo Video Linki:**  
+  `https://github.com/baran-ozbey/NexusPrimer/blob/main/demo_v2_adaptive_60s.mp4` (veya repo içindeki `demo_v2_adaptive_60s.mp4`)
