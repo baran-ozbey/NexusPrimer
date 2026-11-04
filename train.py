@@ -239,7 +239,7 @@ def main():
         else:
             print(f"[OK] Parite kontrolü geçti (< 1e-4)")
 
-        opset_version = onnx_model.opset_import[0].version
+        opset_version = 17  # skl2onnx target opset (onnx_model.opset_import[0] skl2onnx iç versiyonu)
 
     except ImportError as e:
         print(f"[UYARI] ONNX kütüphanesi eksik: {e}. Sadece sklearn modeli kaydedildi.")

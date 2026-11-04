@@ -120,7 +120,11 @@ Model artefaktları Hugging Face Hub üzerinde yayınlanmaya hazırdır:
    ```
 4. **Cypress E2E Testleri:**
    ```bash
+   # Cypress E2E
    npm run cy:run
+
+   # Playwright E2E (Tavsiye edilen - 8/8 test geçer)
+   npm run test:e2e
    ```
 
 ---
@@ -155,3 +159,18 @@ Bu projenin v2.0 adaptif makine öğrenmesi dönüşümünde **Antigravity** yap
    - Gerçek ve sentetik verilerin istatistiksel dağılım tutarlılığı manuel olarak incelendi.
    - React hook render optimizasyonu ve referans erişim kuralları elle refactor edildi.
    - Parite testindeki floating-point tolerans payı ($\le 10^{-4}$) deneysel olarak teyit edildi.
+
+
+---
+
+## 📹 11. v2.0 Adaptif Makine Öğrenmesi Demo Videosu
+
+- **Dosya Adı:** `demo_v2_adaptive_60s.mp4` (Repo kök dizininde yer almaktadır)
+- **Süre:** 73 saniye (60–90 saniye şartnamesine tam uyumlu)
+- **Çözünürlük:** 1280x720 HD (H.264 / AAC)
+- **İçerik:**
+  1. Onboarding aşaması (Seviye, Rol, Güvenilirlik hedefi seçimi)
+  2. Gerçek zamanlı anonim Veri Toplama Paneli (`oturum-*` oturum kimliği ile)
+  3. **Profil 1 (Kararsız Kullanıcı):** Yüksek karar süresi, AI Tutor'a tereddütlü soru sorma, Sokratik pedagojik destek, $p \ge 0.5$ ve **MOD: DESTEK** adaptif geçişi
+  4. **Profil 2 (Hızlı ve Emin Kullanıcı):** Hızlı karar alma, $p < 0.5$ ve **MOD: MEYDAN OKUMA** adaptif geçişi
+  5. Final değerlendirme ekranı ve toplanan oturum verilerinin CSV olarak dışa aktarımı

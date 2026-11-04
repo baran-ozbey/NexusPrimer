@@ -104,3 +104,4 @@ Model tam olarak 8 sayısal özellik alır (`float32`):
 - Model eğitiminde ve uygulamasında **KVKK 6698** sayılı kanuna tam uyulmuştur.
 - Gerçek isim, T.C. kimlik no, e-posta, IP adresi, coğrafi konum veya cihaz parmak izi KESİNLİKLE toplanmamıştır.
 - Oturum kimlikleri istemci tarafında rastgele üretilmiştir.
+

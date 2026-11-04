@@ -62,7 +62,7 @@
   "random_state": 42,
   "train_size": 48,
   "test_size": 12,
-  "onnx_opset": 1,
+  "onnx_opset": 17,
   "scaler": null,
   "etiketleme_kurali": "ipucu_gerekli=1 EĞER (ipucu_sayisi>=2 VEYA karar_suresi_sn>=30 VEYA karar_degistirme_sayisi>=2)"
 }

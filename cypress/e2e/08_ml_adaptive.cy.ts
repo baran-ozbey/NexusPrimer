@@ -70,3 +70,4 @@ describe('NexusPrimer 2.0 — Adaptive Machine Learning & Data Collection', () =
     cy.get('[data-cy="dc-export-btn"]').should('not.be.disabled');
   });
 });
+

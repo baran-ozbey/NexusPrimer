@@ -36,3 +36,4 @@ Ancak Kalite Güvence (QA) ekibi, Python ortamında eğitilen model ile tarayıc
    *Hata Nedeni:* İki model aynı test verisinde %90 alabilir ancak tamamen farklı 10 örneği yanlış bilmiş olabilirler. Tek tek girdi bazında diferansiyel test şarttır.
 2. **Çeldirici 2 (Kayan Noktalı Sayılarda `==` Kullanmak):** Float32 hassasiyet farkları nedeniyle doğrudan eşitlik (`1.00000001 == 1.0`) kontrolü hatalı başarısızlıklara yol açar. $\epsilon$ toleransı zorunludur.
 3. **Çeldirici 3 (Doğrulama ile Geçerlemeyi Karıştırmak):** Sayısal pariteyi kanıtlamak yalnızca doğrulamadır; modelin klinik olarak doğru çalıştığını tek başına kanıtlamaz.
+

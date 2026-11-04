@@ -70,3 +70,4 @@ Eğer ONNX modelinde bellek sızıntısı, tarayıcı kilitlenmesi veya pedagoji
 2. **Kusursuz KVKK Uyumu:** Öğrencinin tereddüt süreleri ve davranışsal metrikleri tarayıcıdan dışarı çıkmadığı için yasal ve etik riskler tamamen elimine edilmiştir.
 3. **Eğitim Odaklı Açık Kaynak:** Modelin gizli kalması ticari bir zorunluluk değildir; aksine öğrencilerin ve öğretim üyelerinin model kartı, ONNX ağırlıkları ve parite testlerini inceleyebilmesi eğitim kazanımını artırmaktadır.
 4. **Çevrimdışı (Offline-first) Çalışma:** Ağ kopmalarında veya zayıf bağlantılarda bile simülasyon kesintisiz sürdürülebilir.
+
