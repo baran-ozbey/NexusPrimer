@@ -1,4 +1,4 @@
-﻿/* ===== NexusPrimer — Karanlık Kriz Merkezi Teması ===== */
+/* ===== NexusPrimer — Karanlık Kriz Merkezi Teması ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 :root {
@@ -1220,6 +1220,268 @@ body {
   background: rgba(255, 171, 0, 0.05);
   border: 1px solid rgba(255, 171, 0, 0.15);
   color: var(--color-warning);
+}
+
+/* ===== AI Davranış Röntgeni — Archetype Card ===== */
+
+@keyframes archetypeReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes barFill {
+  from { width: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes badgePop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@keyframes statCount {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.archetype-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--sp-xl);
+  animation: archetypeReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Renkli border — CSS custom property'le arketipe göre değişir */
+.archetype-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    var(--archetype-color, #00d4ff) 0%,
+    transparent 50%,
+    var(--archetype-color, #00d4ff) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.archetype-card__inner {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 21, 38, 0.95) 0%,
+    rgba(10, 14, 26, 0.98) 100%
+  );
+  padding: var(--sp-xl);
+  position: relative;
+}
+
+/* Dekoratif arka plan nokta paterni */
+.archetype-card__inner::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--archetype-color, #00d4ff) 0%, transparent 70%);
+  opacity: 0.04;
+  pointer-events: none;
+  transform: translate(30%, -30%);
+}
+
+/* ---- Header Row ---- */
+.archetype-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-lg);
+  flex-wrap: wrap;
+  gap: var(--sp-sm);
+}
+
+.archetype-card__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--archetype-color, #00d4ff);
+  background: color-mix(in srgb, var(--archetype-color, #00d4ff) 10%, transparent);
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--archetype-color, #00d4ff) 30%, transparent);
+}
+
+.archetype-card__model-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
+}
+
+/* ---- Profile Row ---- */
+.archetype-card__profile {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-md);
+}
+
+.archetype-card__badge {
+  font-size: 3rem;
+  line-height: 1;
+  animation: badgePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  filter: drop-shadow(0 0 16px var(--archetype-color, #00d4ff));
+  flex-shrink: 0;
+}
+
+.archetype-card__info {}
+
+.archetype-card__title {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #f0f4ff;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.archetype-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--archetype-color, #00d4ff);
+  letter-spacing: 0.03em;
+  opacity: 0.9;
+}
+
+/* ---- Description ---- */
+.archetype-card__desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--color-text-light);
+  margin-bottom: var(--sp-lg);
+  padding: var(--sp-md);
+  border-left: 2px solid var(--archetype-color, #00d4ff);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ---- Telemetri Grid ---- */
+.archetype-card__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-sm);
+  margin-bottom: var(--sp-md);
+}
+
+@media (min-width: 480px) {
+  .archetype-card__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.archetype-stat {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 12px var(--sp-md);
+  animation: statCount 0.5s ease-out both;
+}
+
+.archetype-stat:nth-child(1) { animation-delay: 0.4s; }
+.archetype-stat:nth-child(2) { animation-delay: 0.5s; }
+.archetype-stat:nth-child(3) { animation-delay: 0.6s; }
+.archetype-stat:nth-child(4) { animation-delay: 0.7s; }
+
+.archetype-stat__label {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.archetype-stat__value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #f0f4ff;
+  line-height: 1;
+}
+
+.archetype-stat__value--warn {
+  color: var(--color-warning);
+}
+
+.archetype-stat__value--ok {
+  color: var(--color-success);
+}
+
+/* ---- Divider ---- */
+.archetype-card__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.07) 20%,
+    rgba(255, 255, 255, 0.07) 80%,
+    transparent
+  );
+  margin-bottom: var(--sp-md);
+}
+
+/* ---- Share Button ---- */
+.archetype-card__share-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.archetype-card__share-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.archetype-card__share-btn:active {
+  transform: translateY(0);
+}
+
+.archetype-card__share-btn--copied {
+  background: rgba(0, 255, 136, 0.12);
+  border-color: rgba(0, 255, 136, 0.35);
+  color: var(--color-success);
 }
 
 /* ===== Hints Panel ===== */
